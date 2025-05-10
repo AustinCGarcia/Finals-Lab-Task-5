@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finals Lab Task 5 - SQL Views & Procedures</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #000 30%, #020f1f 70%);
+      color: white;
+      line-height: 1.6;
+    }
+    header {
+      background: #0a0a0a;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 0 10px white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+    }
+    @keyframes color-change {
+      0% { color: white; }
+      50% { color: #00f0ff; }
+      100% { color: white; }
+    }
+    h1 {
+      font-size: 2rem;
+      animation: color-change 10s ease-in-out infinite;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #00f0ff;
+    }
+    section {
+      padding: 100px 20px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2.section-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-bottom: 2px solid white;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+    .step-process {
+      margin-top: 20px;
+    }
+    .step-process h3 {
+      font-size: 1.5rem;
+      margin: 20px 0 10px;
+    }
+    .step-process ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .step-process ul li {
+      margin-bottom: 10px;
+    }
+    .project-image {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      border-radius: 10px;
+      border: 2px solid white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: block;
+      cursor: pointer;
+    }
+    .project-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px 5px rgba(0, 240, 255, 0.8);
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #00f0ff, #007fff);
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    }
+    .download-btn i {
+      margin-right: 10px;
+    }
+    .download-btn:hover {
+      background: white;
+      color: #000;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid white;
+      background: #0a0a0a;
+      margin-top: 40px;
+      color: #aaa;
+    }
+    .preview-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      backdrop-filter: blur(10px);
+    }
+    .preview-modal img {
+      max-width: 80%;
+      max-height: 80%;
+      transition: transform 0.3s ease;
+    }
+    .preview-modal.show {
+      display: flex;
+    }
+    .preview-modal .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      font-size: 30px;
+      color: white;
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      border-radius: 50%;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .preview-modal .close-btn:hover {
+      background: rgba(255, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Finals Lab Task 5 - SQL Views & Procedures</h1>
+    <nav>
+      <a href="https://austincgarcia.github.io/AustinEDM/">Back to Portfolio</a>
+    </nav>
+  </header>
+  <section>
+    <h2 class="section-title">Project Overview</h2>
+    <p>This lab demonstrates the use of SQL views, stored procedures, and functions to manage and manipulate data within an <code>inventory</code> database.</p>
+    <a href="https://github.com/user-attachments/files/20139307/Finals.-.LabTask.5.-.Garcia.docx" class="download-btn" target="_blank">
+      <i class="fas fa-file-download"></i> Download Document
+    </a>
+
+    <div class="step-process">
+      <h3>Step by Step Process</h3>
+      <ul>
+        <li><strong>Setup MySQL Workbench:</strong> Start MySQL server, open Workbench, and use <code>democodes.sql</code> file for queries.</li>
+        <li><strong>Use Inventory Database:</strong> Load and use <code>inventory.sql</code>.</li>
+        <li><strong>Create Views, Stored Procedure, and Function:</strong></li>
+        <ul>
+          <li>Views for product filtering and computation.</li>
+          <li>Stored procedure to update vendor name.</li>
+          <li>Function to display product info based on vendor code and state.</li>
+        </ul>
+        <li><strong>Execute and document the results with screenshots.</strong></li>
+      </ul>
+    </div>
+
+    <h2 class="section-title">SQL Tasks & Outputs</h2>
+    <ol>
+      <li>
+        <strong>Task 1:</strong> Create a view displaying products from 2002 onwards.
+        <div>
+          <h4>Query and Output</h4>
+          <img src="https://github.com/user-attachments/assets/4136c7db-91b0-4f84-93b8-197eb55ced9d" class="project-image" onclick="openPreview(this)">
+          <img src="https://github.com/user-attachments/assets/0264e6e1-fb41-4c6f-8aab-231b32218170" class="project-image" onclick="openPreview(this)">
+        </div>
+      </li>
+      <li>
+        <strong>Task 2:</strong> Create a view for products priced between 100–150.
+        <div>
+          <h4>Query and Output</h4>
+          <img src="https://github.com/user-attachments/assets/45e97ad5-3ef7-4a9c-8c4d-32e1f63191c4" class="project-image" onclick="openPreview(this)">
+          <img src="https://github.com/user-attachments/assets/9c5dac0e-ddb8-4586-857e-4d703d087d84" class="project-image" onclick="openPreview(this)">
+        </div>
+      </li>
+      <li>
+        <strong>Task 3:</strong> Create a view to compute total price (on_hand × price) for specific vendor codes.
+        <div>
+          <h4>Query and Output</h4>
+          <img src="https://github.com/user-attachments/assets/0923620f-ba96-4f03-bb4b-dcd85673ace3" class="project-image" onclick="openPreview(this)">
+          <img src="https://github.com/user-attachments/assets/37046b80-fa26-4884-9b4b-d7e6fb620f50" class="project-image" onclick="openPreview(this)">
+        </div>
+      </li>
+      <li>
+        <strong>Task 4:</strong> Create a stored procedure to update vendor name from 'Bryson, Inc.' to 'Bryson and Co'.
+        <div>
+          <h4>Query and Output</h4>
+          <img src="https://github.com/user-attachments/assets/6209dc5e-85f7-4741-80ca-81eefb9d2da5" class="project-image" onclick="openPreview(this)">
+          <img src="https://github.com/user-attachments/assets/6201518f-ad89-4703-ad6f-b4066a4dcd93" class="project-image" onclick="openPreview(this)">
+        </div>
+      </li>
+      <li>
+        <strong>Task 5:</strong> Create a function that displays product description and price based on vendor code and state.
+        <div>
+          <h4>Query and Output</h4>
+          <img src="https://github.com/user-attachments/assets/1c46f46d-5619-4495-958e-29614641a985" class="project-image" onclick="openPreview(this)">
+          <img src="https://github.com/user-attachments/assets/2c7694a6-f81c-4e8e-93af-60bacf54c379" class="project-image" onclick="openPreview(this)">
+        </div>
+      </li>
+    </ol>
+  </section>
+  <footer>
+    <p>© 2025 Austin's EDM Portfolio. All rights reserved.</p>
+  </footer>
+  <div id="preview-modal" class="preview-modal">
+    <button class="close-btn" onclick="closePreview()">×</button>
+    <img id="preview-image" src="" alt="Preview Image">
+  </div>
+  <script>
+    function openPreview(image) {
+      var modal = document.getElementById("preview-modal");
+      var previewImage = document.getElementById("preview-image");
+      previewImage.src = image.src;
+      modal.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+    function closePreview() {
+      var modal = document.getElementById("preview-modal");
+      modal.classList.remove("show");
+      document.body.style.overflow = "auto";
+    }
+  </script>
+</body>
+</html>
